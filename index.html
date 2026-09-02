@@ -2,186 +2,48 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Yarınki Avrupa Futbol Analizleri</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yarin Maclar - MX 00:00</title>
 <style>
-    :root{
-        --bg:#0a0c10;
-        --card:#1c1e28;
-        --text:#e0e0e0;
-        --accent:#00c853;
-        --accent2:#ff1744;
-        --accent3:#ffeb3b;
-    }
-    body{
-        margin:0;
-        font-family:Arial,Helvetica,sans-serif;
-        background:var(--bg);
-        color:var(--text);
-        line-height:1.6;
-    }
-    #alert{
-        background:var(--accent2);
-        color:#fff;
-        padding:10px 20px;
-        text-align:center;
-        font-weight:bold;
-    }
-    #header{
-        padding:20px;
-        text-align:center;
-        font-size:1.2rem;
-    }
-    #matches{
-        display:grid;
-        grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-        gap:20px;
-        padding:20px;
-    }
-    .card{
-        background:var(--card);
-        border-radius:8px;
-        padding:15px;
-        display:flex;
-        flex-direction:column;
-        justify-content:space-between;
-    }
-    .card h3{
-        margin:0 0 5px 0;
-        font-size:1.1rem;
-    }
-    .time{
-        font-size:0.9rem;
-        color:var(--accent3);
-        margin-bottom:10px;
-    }
-    .teams{
-        font-size:1rem;
-        margin-bottom:10px;
-    }
-    .form{
-        margin-bottom:10px;
-        font-size:0.9rem;
-    }
-    .stats{
-        display:flex;
-        justify-content:space-between;
-        margin-bottom:10px;
-    }
-    .stat{
-        flex:1;
-        text-align:center;
-    }
-    .bar{
-        height:8px;
-        border-radius:4px;
-        margin-top:4px;
-    }
-    .bar.home{background:var(--accent);}
-    .bar.draw{background:var(--accent3);}
-    .bar.away{background:var(--accent2);}
-    @media(max-width:480px){
-        .teams{font-size:0.95rem;}
-        .form{font-size:0.85rem;}
-    }
+body{margin:0;background:#0a0c10;color:#e6e6e6;font-family:system-ui;padding:0 12px 40px}
+.top{background:#ff0a3b;color:#fff;text-align:center;font-size:12px;padding:8px;font-weight:600}
+header{max-width:1000px;margin:18px auto;text-align:center}
+h1{margin:0;font-size:22px} #date{opacity:.6;font-size:13px;margin-top:4px}
+.grid{max-width:1000px;margin:18px auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
+.card{background:#151922;border:1px solid #232c3e;border-radius:16px;padding:14px}
+.lig{font-size:11px;opacity:.5;letter-spacing:1px;text-transform:uppercase}
+.mac{font-size:18px;font-weight:800;margin:8px 0;display:flex;justify-content:space-between}
+.row{display:flex;justify-content:space-between;font-size:12px;margin-top:10px;background:#0f131b;padding:8px 10px;border-radius:10px}
+.bar{display:flex;height:6px;background:#0f131b;border-radius:10px;overflow:hidden;margin-top:8px}
+.form span{display:inline-block;width:18px;height:18px;line-height:18px;text-align:center;border-radius:4px;font-size:10px;margin-right:2px}
+.W{background:#1f8a4c} .D{background:#444} .L{background:#7a2a2a}
 </style>
 </head>
 <body>
-<div id="alert">Eğitim / eğlence amaçlı istatistiksel analizdir, bahis tavsiyesi değildir.</div>
-<div id="header"></div>
-<div id="matches"></div>
-
+<div class="top">Eğitim / eğlence amaçlı istatistiksel analizdir, bahis tavsiyesi değildir.</div>
+<header><h1>Avrupa Top 10 Lig</h1><div id="date">Yarin</div></header>
+<div id="grid" class="grid"></div>
 <script>
-/* Mock veri seti */
-const matches = [
-    {
-        league:"Premier League",
-        time:"18:30",
-        home:"Arsenal",
-        away:"Manchester City",
-        homeLast5:"W-D-L-W-W",
-        awayLast5:"L-W-W-D-L",
-        missingHome:1,
-        missingAway:0,
-        xgHome:1.12,
-        xgAway:1.45,
-        percHome:48,
-        percDraw:22,
-        percAway:30
-    },
-    {
-        league:"La Liga",
-        time:"20:00",
-        home:"Barcelona",
-        away:"Real Madrid",
-        homeLast5:"W-W-D-W-L",
-        awayLast5:"D-L-L-W-W",
-        missingHome:0,
-        missingAway:2,
-        xgHome:1.38,
-        xgAway:1.20,
-        percHome:52,
-        percDraw:18,
-        percAway:30
-    },
-    {
-        league:"Bundesliga",
-        time:"19:00",
-        home:"Bayern Munich",
-        away:"Borussia Dortmund",
-        homeLast5:"W-W-W-D-L",
-        awayLast5:"L-D-W-W-W",
-        missingHome:0,
-        missingAway:1,
-        xgHome:1.55,
-        xgAway:1.05,
-        percHome:55,
-        percDraw:15,
-        percAway:30
-    },
-    {
-        league:"Serie A",
-        time:"17:45",
-        home:"Juventus",
-        away:"Inter Milan",
-        homeLast5:"D-L-W-W-W",
-        awayLast5:"W-W-L-D-L",
-        missingHome:2,
-        missingAway:0,
-        xgHome:1.07,
-        xgAway:1.22,
-        percHome:40,
-        percDraw:25,
-        percAway:35
-    },
-    {
-        league:"Ligue 1",
-        time:"20:30",
-        home:"Paris Saint-Germain",
-        away:"Lyon",
-        homeLast5:"W-W-W-W-W",
-        awayLast5:"L-D-L-W-D",
-        missingHome:0,
-        missingAway:1,
-        xgHome:1.80,
-        xgAway:0.95,
-        percHome:70,
-        percDraw:10,
-        percAway:20
-    },
-    {
-        league:"Eredivisie",
-        time:"18:15",
-        home:"Ajax",
-        away:"Feyenoord",
-        homeLast5:"W-D-W-W-L",
-        awayLast5:"L-W-D-L-W",
-        missingHome:1,
-        missingAway:2,
-        xgHome:1.15,
-        xgAway:1.10,
-        percHome:50,
-        percDraw:20,
-        percAway:30
-    },
-    {
-        league:"
+const data=[
+{lig:"Premier League",s:"21:45",ev:"Man City",dp:"Arsenal",ef:["W","W","D","W","W"],df:["W","D","W","W","L"],e1:2,e2:3,x1:1.9,x2:1.4,p:[48,26,26]},
+{lig:"La Liga",s:"22:00",ev:"Real Madrid",dp:"Atletico",ef:["W","W","W","D","W"],df:["W","L","W","D","W"],e1:1,e2:4,x1:2.1,x2:1.2,p:[55,23,22]},
+{lig:"Bundesliga",s:"21:30",ev:"Bayern",dp:"Leverkusen",ef:["W","W","W","W","D"],df:["W","W","D","W","W"],e1:3,e2:2,x1:2.3,x2:1.5,p:[52,22,26]},
+{lig:"Serie A",s:"21:45",ev:"Inter",dp:"Napoli",ef:["W","D","W","L","W"],df:["D","W","W","W","D"],e1:2,e2:2,x1:1.6,x2:1.6,p:[38,28,34]},
+{lig:"Ligue 1",s:"22:00",ev:"PSG",dp:"Marseille",ef:["W","W","L","W","W"],df:["W","D","L","W","D"],e1:2,e2:5,x1:2.0,x2:1.1,p:[60,20,20]},
+{lig:"Süper Lig",s:"20:00",ev:"Galatasaray",dp:"Fenerbahçe",ef:["W","W","D","W","W"],df:["W","W","W","D","W"],e1:1,e2:1,x1:1.7,x2:1.7,p:[40,28,32]},
+{lig:"Eredivisie",s:"21:00",ev:"Ajax",dp:"PSV",ef:["L","W","D","W","W"],df:["W","W","W","W","W"],e1:4,e2:1,x1:1.4,x2:1.8,p:[30,25,45]},
+{lig:"Primeira Liga",s:"22:30",ev:"Benfica",dp:"Porto",ef:["W","W","W","D","W"],df:["W","D","W","W","L"],e1:2,e2:3,x1:1.5,x2:1.4,p:[42,27,31]},
+{lig:"Pro Lig",s:"21:45",ev:"Club Brugge",dp:"Genk",ef:["W","L","W","W","D"],df:["W","W","L","D","W"],e1:2,e2:2,x1:1.6,x2:1.3,p:[44,26,30]},
+{lig:"Championship",s:"22:00",ev:"Leeds",dp:"Leicester",ef:["W","W","D","W","L"],df:["D","W","W","W","W"],e1:3,e2:2,x1:1.5,x2:1.5,p:[37,28,35]},
+];
+function f(arr){return arr.map(x=>`<span class="${x}">${x}</span>`).join("")}
+document.getElementById("date").innerText = "Yarın - " + new Date(Date.now()+86400000).toLocaleDateString('tr-TR',{timeZone:'America/Mexico_City',day:'numeric',month:'long',weekday:'long'});
+const g=document.getElementById("grid");
+data.forEach(m=>{
+ const d=document.createElement("div");d.className="card";
+ d.innerHTML=`<div class="lig">${m.lig} • ${m.s}</div><div class="mac"><span>${m.ev}</span><span style="opacity:.3">vs</span><span>${m.dp}</span></div><div class="row"><span>${f(m.ef)}</span><span>${f(m.df)}</span></div><div class="row"><span>Eksik:${m.e1}</span><span>xG ${m.x1}-${m.x2}</span><span>${m.e2}:Eksik</span></div><div class="bar"><div style="width:${m.p[0]}%;background:#39ff14"></div><div style="width:${m.p[1]}%;background:#666"></div><div style="width:${m.p[2]}%;background:#ff3b3b"></div></div><div class="row" style="background:transparent"><span>Ev %${m.p[0]}</span><span>Ber %${m.p[1]}</span><span>Dep %${m.p[2]}</span></div>`;
+ g.appendChild(d);
+});
+</script>
+</body>
+</html>
