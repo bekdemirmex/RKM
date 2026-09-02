@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Glassmorphism Hava Durumu Uygulaması</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body, html{
+    margin:0; padding:0; height:100%;
+    font-family:Arial, Helvetica, sans-serif;
+    background:url('https://images.unsplash.com/photo-1501973801541-5d6f8c1e6b5b?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+    background-size:cover;
+    color:#fff;
+  }
+  .glass{
+    max-width:420px;
+    margin:0 auto;
+    margin-top:10vh;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    border-radius:15px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 8px 32px 0 rgba(31,38,135,0.37);
+  }
+  h1{margin-top:0;}
+  input{
+    width:80%; padding:12px; margin:10px 0;
+    border:none; border-radius:8px;
+    background:rgba(255,255,255,0.2);
+    color:#fff;
+    font-size:16px;
+  }
+  button{
+    padding:12px 25px;
+    border:none;
+    border-radius:8px;
+    background:#4caf50;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+  }
+  button:hover{background:#45a049;}
+  #result{
+    margin-top:20px;
+  }
+  #result img{width:120px;}
+  #result p{margin:5px 0;}
+  @media (max-width:500px){
+    .glass{margin-top:5vh; padding:20px;}
+    input{width:90%;}
+  }
+</style>
+</head>
+<body>
+<div class="glass">
+  <h1>Hava Durumu</h1>
+  <input type="text" id="cityInput" placeholder="Şehir giriniz">
+  <button onclick="getWeather()">Ara</button>
+  <div id="result"></div>
+</div>
+<script>
+  function getWeather(){
+    const city=document.getElementById('cityInput').value.trim();
+    if(!city){alert('Lütfen şehir giriniz');return;}
+    const apiKey='YOUR_API_KEY'; // Buraya kendi OpenWeatherMap API anahtarınızı girin
+    const url=`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&lang=tr&appid=${apiKey}`;
+    fetch(url)
+      .then(r=>{if(!r.ok)throw new Error('Şehir bulunamadı');return r.json();})
+      .then(d=>{
+        const temp=d.main.temp;
+        const desc=d.weather[0].description;
+        const icon=`https://openweathermap.org/img/wn/${d.weather[0].icon}@2x.png`;
+        document.getElementById('result').innerHTML=
+          `<img src="${icon}" alt="${desc}">
+           <p><strong>${city.toUpperCase()}</strong></p>
+           <p>${temp}°C</p>
+           <p>${desc}</p>`;
+      })
+      .catch(err=>{document.getElementById('result').textContent=err.message;});
+  }
+</script>
+</body>
+</html>
