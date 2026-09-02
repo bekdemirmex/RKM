@@ -2,34 +2,31 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Yarınki Futbol Analizleri</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Futbol Analiz</title>
 <style>
-:root{--bg:#0a0c10;--card:#111418;--text:#cfcfcf;--header:#0d1114;--win:#4caf50;--draw:#ffeb3b;--loss:#f44336;--missing:#ff9800;--xg:#00bcd4;}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);}
-header{background:var(--header);padding:1rem;text-align:center;font-size:1.2rem;}
-.container{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;padding:1rem;}
-.card{background:var(--card);border-radius:8px;padding:1rem;box-shadow:0 2px 4px rgba(0,0,0,0.5);}
-.card h2{margin:0 0 .5rem 0;font-size:1.2rem;}
-.card .time{font-weight:bold;margin-bottom:.5rem;}
-.card .form{margin-bottom:.5rem;}
-.stat-bar{display:flex;height:10px;border-radius:4px;overflow:hidden;margin-bottom:.5rem;}
-.stat-bar .win{background:var(--win);}
-.stat-bar .draw{background:var(--draw);}
-.stat-bar .loss{background:var(--loss);}
-.info{font-size:.9rem;}
-.info span{display:inline-block;margin-right:.5rem;}
-.info .missing{color:var(--missing);}
-.info .xg{color:var(--xg);}
-@media(max-width:600px){.container{grid-template-columns:1fr;}}
+body{margin:0;background:#0a0c10;color:#fff;font-family:system-ui;padding:0 10px 40px}
+.top{background:#ff0a3b;color:#fff;text-align:center;padding:8px;font-size:12px;font-weight:700}
+h1{font-size:22px;text-align:center;margin:18px 0 4px} #tarih{text-align:center;opacity:.6;font-size:13px}
+.grid{max-width:1000px;margin:16px auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
+.card{background:#151922;border:1px solid #253047;border-radius:16px;padding:14px}
+.lig{font-size:11px;opacity:.5} .mac{font-size:18px;font-weight:800;margin:8px 0;display:flex;justify-content:space-between}
+.row{display:flex;justify-content:space-between;font-size:12px;background:#0f131b;padding:8px;border-radius:8px;margin-top:8px}
+.bar{height:6px;display:flex;border-radius:10px;overflow:hidden;margin-top:8px;background:#0f131b}
 </style>
 </head>
 <body>
-<header>Eğitim / Eğlence amaçlı istatistiksel analizdir, bahis tavsiyesi değildir.</header>
-<main class="container" id="matches"></main>
+<div class="top">Eğitim / eğlence amaçlı istatistiksel analizdir, bahis tavsiyesi değildir.</div>
+<h1>Avrupa Top 10 Lig - Yarın</h1>
+<div id="tarih"></div>
+<div class="grid">
+<div class="card"><div class="lig">PREMIER LEAGUE - 21:45</div><div class="mac"><span>Man City</span><span style="opacity:.3">vs</span><span>Arsenal</span></div><div class="row"><span>Form: W W D W W</span><span>W D W W L</span></div><div class="row"><span>Eksik:2</span><span>xG 1.9-1.4</span><span>3:Eksik</span></div><div class="bar"><div style="width:48%;background:#39ff14"></div><div style="width:26%;background:#666"></div><div style="width:26%;background:#ff3b3b"></div></div><div class="row" style="background:transparent"><span>Ev %48</span><span>Ber %26</span><span>Dep %26</span></div></div>
+<div class="card"><div class="lig">LA LIGA - 22:00</div><div class="mac"><span>Real Madrid</span><span style="opacity:.3">vs</span><span>Atletico</span></div><div class="row"><span>Form: W W W D W</span><span>W L W D W</span></div><div class="row"><span>Eksik:1</span><span>xG 2.1-1.2</span><span>4:Eksik</span></div><div class="bar"><div style="width:55%;background:#39ff14"></div><div style="width:23%;background:#666"></div><div style="width:22%;background:#ff3b3b"></div></div><div class="row" style="background:transparent"><span>Ev %55</span><span>Ber %23</span><span>Dep %22</span></div></div>
+<div class="card"><div class="lig">BUNDESLIGA - 21:30</div><div class="mac"><span>Bayern</span><span style="opacity:.3">vs</span><span>Leverkusen</span></div><div class="row"><span>Form: W W W W D</span><span>W W D W W</span></div><div class="row"><span>Eksik:3</span><span>xG 2.3-1.5</span><span>2:Eksik</span></div><div class="bar"><div style="width:52%;background:#39ff14"></div><div style="width:22%;background:#666"></div><div style="width:26%;background:#ff3b3b"></div></div><div class="row" style="background:transparent"><span>Ev %52</span><span>Ber %22</span><span>Dep %26</span></div></div>
+<div class="card"><div class="lig">SERIE A - 21:45</div><div class="mac"><span>Inter</span><span style="opacity:.3">vs</span><span>Napoli</span></div><div class="row"><span>Form: W D W L W</span><span>D W W W D</span></div><div class="row"><span>Eksik:2</span><span>xG 1.6-1.6</span><span>2:Eksik</span></div><div class="bar"><div style="width:38%;background:#39ff14"></div><div style="width:28%;background:#666"></div><div style="width:34%;background:#ff3b3b"></div></div><div class="row" style="background:transparent"><span>Ev %38</span><span>Ber %28</span><span>Dep %34</span></div></div>
+</div>
 <script>
-const data = [
-{league:"Premier League",time:"2026-09-03T18:30:00Z",home:"Manchester United",away:"Chelsea",form:"W-D-W-W-L",missing:3,xg:1.45,stats:{home:55,draw:20,away:25}},
-{league:"La Liga",time:"2026-09-03T20:45:00Z",home:"Real Madrid",away:"Barcelona",form:"W-W-D-L-L",missing:2,xg:1.32,stats:{home:60,draw:15,away:25}},
-{league:"Bundesliga",time:"2026-09-04T17:00:00Z",home:"Bayern Munich",away:"Borussia Dortmund",form:"L-W-W-D-L",missing:4,xg:1.28,stats:{home:45,draw:25,away:30}},
-{league:"Serie A",time:"2026-09-04T19:30:00Z",home:"Juventus",away:"AC Milan",form:"W-L-D-W-W",missing:1,xg:1.60,stats:{home:70,draw:10,away:20}},
-{league:"Ligue 1",time:"2026-09-04T21:15:00Z",home:"Paris Saint-Germain",away:"Lyon",form:"W-W-W-L-D",missing:2,xg:1.70,stats:{
+document.getElementById("tarih").innerText = new Date(Date.now()+86400000).toLocaleDateString('tr-TR',{timeZone:'America/Mexico_City',weekday:'long',day:'numeric',month:'long'});
+</script>
+</body>
+</html>
