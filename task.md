@@ -1,1 +1,1 @@
-güzel koyu kırmızı temalı hesap makinesi üret
+Hava durumu uygulaması yap, şehir yazınca sıcaklık gelsin, glassmorphism tasarım olsun
