@@ -1,6 +1,5 @@
 name: Otonom Ajan
 on:
-  push:
   schedule:
     - cron: '0 6 * * *'
   workflow_dispatch:
