@@ -1,162 +1,46 @@
 <!DOCTYPE >
-< lang="en">
+< lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Neon Todo List</title>
+<title>Neon Cyberpunk TODO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  body{
-    background:#111;
-    color:#0f0;
-    font-family:Arial,Helvetica,sans-serif;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    margin:0;
-  }
-  #app{
-    width:90%;
-    max-width:400px;
-    text-align:center;
-  }
-  h1{
-    font-size:2rem;
-    margin-bottom:1rem;
-    text-shadow:0 0 10px #0f0;
-  }
-  input{
-    width:70%;
-    padding:10px;
-    border:none;
-    outline:none;
-    background:#222;
-    color:#0f0;
-    border-radius:5px;
-    font-size:1rem;
-    transition:all .3s;
-  }
-  input:focus{
-    border:1px solid #0f0;
-    background:#111;
-  }
-  button{
-    padding:10px 15px;
-    margin-left:5px;
-    border:none;
-    background:#0f0;
-    color:#111;
-    font-weight:bold;
-    cursor:pointer;
-    border-radius:5px;
-    transition:background .3s;
-  }
-  button:hover{
-    background:#09f;
-  }
-  ul{
-    list-style:none;
-    padding:0;
-    margin-top:1rem;
-    text-align:left;
-  }
-  li{
-    background:#222;
-    margin:5px 0;
-    padding:10px;
-    border-radius:5px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    opacity:0;
-    transform:translateX(-20px);
-    animation:fadeIn 0.3s forwards;
-    box-shadow:0 0 10px #0f0;
-  }
-  li.done{
-    text-decoration:line-through;
-    opacity:0.6;
-  }
-  .del{
-    background:#f00;
-    color:#fff;
-    border:none;
-    border-radius:3px;
-    padding:2px 5px;
-    cursor:pointer;
-  }
-  @keyframes fadeIn{
-    to{opacity:1;transform:translateX(0);}
-  }
+  body{margin:0;font-family:"Segoe UI",Arial,Helvetica,sans-serif;background:#111;color:#eee;}
+  .header{text-align:center;padding:20px 0;}
+  .header h1{font-size:2.5rem;color:#ff00ff;text-shadow:0 0 5px #ff00ff,0 0 10px #ff00ff,0 0 15px #ff00ff,0 0 20px #ff00ff,0 0 25px #ff00ff;}
+  .container{max-width:600px;margin:auto;padding:10px;}
+  .input-group{display:flex;margin-bottom:15px;}
+  .input-group input{flex:1;padding:10px;font-size:1rem;border:2px solid #ff00ff;border-right:none;background:#222;color:#eee;}
+  .input-group button{padding:10px 15px;border:none;background:#ff00ff;color:#111;font-size:1rem;cursor:pointer;}
+  .input-group button:hover{background:#ff33ff;}
+  .list{list-style:none;padding:0;}
+  .list li{padding:10px;margin-bottom:5px;background:#222;border-radius:5px;display:flex;align-items:center;justify-content:space-between;transition:background .2s;color:#eee;}
+  .list li:hover{background:#333;}
+  .list li.completed{color:#555;text-decoration:line-through;}
+  .list li button{background:none;border:none;color:#ff00ff;font-size:1.2rem;cursor:pointer;}
+  .list li button:hover{color:#ff33ff;}
+  .glow{box-shadow:0 0 10px #ff00ff;}
 </style>
 </head>
 <body>
-<div id="app">
-  <h1>Neon Todo</h1>
-  <div>
-    <input type="text" id="newTask" placeholder="Yeni görev ekle...">
-    <button id="addBtn">+</button>
+<div class="header"><h1>Neon Cyberpunk TODO</h1></div>
+<div class="container">
+  <div class="input-group">
+    <input type="text" id="taskInput" placeholder="Yeni görev...">
+    <button id="addBtn">Ekle</button>
   </div>
-  <ul id="list"></ul>
+  <ul id="todoList" class="list"></ul>
 </div>
 <script>
-  const storageKey='neonTodo';
-  const listEl=document.getElementById('list');
-  const inputEl=document.getElementById('newTask');
+  const listEl=document.getElementById('todoList');
+  const input=document.getElementById('taskInput');
   const addBtn=document.getElementById('addBtn');
-
-  function loadTasks(){
-    const data=localStorage.getItem(storageKey);
-    return data?JSON.parse(data):[];
-  }
-
-  function saveTasks(tasks){
-    localStorage.setItem(storageKey,JSON.stringify(tasks));
-  }
-
-  function render(){
-    const tasks=loadTasks();
-    listEl.innerHTML='';
-    tasks.forEach((t,i)=>{
-      const li=document.createElement('li');
-      li.textContent=t.text;
-      li.className=t.done?'done':'';
-      const delBtn=document.createElement('button');
-      delBtn.textContent='×';
-      delBtn.className='del';
-      delBtn.onclick=()=>removeTask(i);
-      li.appendChild(delBtn);
-      li.onclick=()=>toggleDone(i);
-      listEl.appendChild(li);
-    });
-  }
-
-  function addTask(){
-    const txt=inputEl.value.trim();
-    if(!txt)return;
-    const tasks=loadTasks();
-    tasks.push({text:txt,done:false});
-    saveTasks(tasks);
-    inputEl.value='';
-    render();
-  }
-
-  function removeTask(index){
-    const tasks=loadTasks();
-    tasks.splice(index,1);
-    saveTasks(tasks);
-    render();
-  }
-
-  function toggleDone(index){
-    const tasks=loadTasks();
-    tasks[index].done=!tasks[index].done;
-    saveTasks(tasks);
-    render();
-  }
-
-  addBtn.onclick=addTask;
-  inputEl.addEventListener('keypress',e=>e.key==='Enter'?addTask():null);
-  render();
+  function load(){const d=localStorage.getItem('tasks');if(d){JSON.parse(d).forEach(addTask);}}
+  function save(){const t=[];listEl.querySelectorAll('li').forEach(li=>t.push({text:li.firstChild.textContent,completed:li.classList.contains('completed')}));localStorage.setItem('tasks',JSON.stringify(t));}
+  function addTask(item){const li=document.createElement('li');li.classList.add('glow');const span=document.createElement('span');span.textContent=typeof item==='string'?item:item.text;if(item&&item.completed)li.classList.add('completed');const delBtn=document.createElement('button');delBtn.textContent='✖';delBtn.onclick=e=>{e.stopPropagation();li.remove();save();};li.appendChild(span);li.appendChild(delBtn);li.onclick=()=>{li.classList.toggle('completed');save();};listEl.appendChild(li);}
+  addBtn.onclick=e=>{e.preventDefault();const txt=input.value.trim();if(txt){addTask(txt);input.value='';save();}}
+  input.addEventListener('keyup',e=>{if(e.key==='Enter')addBtn.click();});
+  load();
 </script>
 </body>
 </>
