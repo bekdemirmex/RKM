@@ -1,1 +1,3 @@
-Neon renkli, animasyonlu bir todo list uygulaması yap, localStorage ile kaydetsin
+Tamamen farkli bir uygulama yap: Neon cyberpunk tarzinda TODO LIST.
+Gorev ekle/sil, tik atinca ustu cizilsin, localStorage kaydetsin.
+Tek dosya index.html, mor-siyah tema, cok modern.
