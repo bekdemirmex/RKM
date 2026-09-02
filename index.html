@@ -1,66 +1,66 @@
-<!DOCTYPE >
-< lang="tr">
+<!DOCTYPE html>
+<html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Siyah Temalı Modern Hesap Makinesi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hesap Makinesi</title>
 <style>
-  body{margin:0;padding:0;background:#1e1e1e;font-family:'Segoe UI',sans-serif;color:#f0f0f0;}
-  #calculator{max-width:320px;margin:50px auto;background:#2d2d2d;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.5);overflow:hidden;}
-  #display{background:#000;color:#0f0;font-size:2rem;text-align:right;padding:20px;box-sizing:border-box;}
-  .buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;}
-  button{padding:20px;font-size:1.2rem;background:#3c3c3c;border:none;color:#fff;border-radius:5px;cursor:pointer;}
-  button.operator{background:#ff9500;}
-  button:active{background:#555;}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#121212;font-family:system-ui}
+.calc{width:320px;background:#1e1e1e;border-radius:16px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.5)}
+.display{background:#000;color:#00ff66;font-size:48px;text-align:right;padding:20px 16px;min-height:60px;word-wrap:break-word}
+.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#121212}
+button{border:0;padding:24px 0;font-size:20px;cursor:pointer}
+button:active{opacity:.7}
+.num{background:#333;color:#fff}
+.op{background:#ff9500;color:#fff}
+.func{background:#ff9500;color:#fff}
+.zero{grid-column:span 2}
 </style>
 </head>
 <body>
-<div id="calculator">
-  <div id="display">0</div>
-  <div class="buttons">
-    <button class="operator" data-action="clear">C</button>
-    <button class="operator" data-action="del">⌫</button>
-    <button class="operator" data-action="%">%</button>
-    <button class="operator" data-action="/">÷</button>
-
-    <button data-value="7">7</button>
-    <button data-value="8">8</button>
-    <button data-value="9">9</button>
-    <button class="operator" data-action="*">×</button>
-
-    <button data-value="4">4</button>
-    <button data-value="5">5</button>
-    <button data-value="6">6</button>
-    <button class="operator" data-action="-">-</button>
-
-    <button data-value="1">1</button>
-    <button data-value="2">2</button>
-    <button data-value="3">3</button>
-    <button class="operator" data-action="+">+</button>
-
-    <button data-value="0" style="grid-column:span 2;">0</button>
-    <button data-value=".">.</button>
-    <button class="operator" data-action="=">=</button>
-  </div>
+<div class="calc">
+<div id="display" class="display">0</div>
+<div class="keys">
+<button class="func" onclick="clearAll()">C</button>
+<button class="func" onclick="del()">⌫</button>
+<button class="func" onclick="append('%')">%</button>
+<button class="op" onclick="append('/')">÷</button>
+<button class="num" onclick="append('7')">7</button>
+<button class="num" onclick="append('8')">8</button>
+<button class="num" onclick="append('9')">9</button>
+<button class="op" onclick="append('*')">×</button>
+<button class="num" onclick="append('4')">4</button>
+<button class="num" onclick="append('5')">5</button>
+<button class="num" onclick="append('6')">6</button>
+<button class="op" onclick="append('-')">-</button>
+<button class="num" onclick="append('1')">1</button>
+<button class="num" onclick="append('2')">2</button>
+<button class="num" onclick="append('3')">3</button>
+<button class="op" onclick="append('+')">+</button>
+<button class="num zero" onclick="append('0')">0</button>
+<button class="num" onclick="append('.')">.</button>
+<button class="op" onclick="calculate()">=</button>
+</div>
 </div>
 <script>
-const display=document.getElementById('display');
-let expression='';
-function updateDisplay(val){display.textContent=val||'0';}
-document.querySelectorAll('button').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const action=btn.dataset.action;
-    const value=btn.dataset.value;
-    if(action){
-      if(action==='clear'){expression='';updateDisplay();}
-      else if(action==='del'){expression=expression.slice(0,-1);updateDisplay(expression||'0');}
-      else if(action==='='){try{expression=eval(expression).toString();updateDisplay(expression);}catch{updateDisplay('Error');expression='';}}
-      else if(action==='%' ){expression+=value?value:'';updateDisplay(expression);}
-      else{expression+=action;updateDisplay(expression);}
-    }else{
-      expression+=value;updateDisplay(expression);
-    }
-  });
-});
+let d=document.getElementById('display');
+let cur='0';
+function update(){d.textContent=cur}
+function append(v){
+ if(cur==='0' && v!=='.' && v!=='+' && v!=='-' && v!=='*' && v!=='/' && v!=='%') cur=v;
+ else cur+=v;
+ update();
+}
+function clearAll(){cur='0';update()}
+function del(){cur=cur.slice(0,-1)||'0';update()}
+function calculate(){
+ try{
+  let exp=cur.replace(/%/g,'/100').replace(/×/g,'*').replace(/÷/g,'/');
+  let res=Function('"use strict";return ('+exp+')')();
+  cur=String(Number.isFinite(res)? +res.toFixed(10) : 'Hata');
+ }catch{cur='Hata'}
+ update();
+}
 </script>
 </body>
-</>
+</html>
