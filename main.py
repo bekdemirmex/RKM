@@ -1,14 +1,11 @@
 import os
 from groq import Groq
-
-# anahtarını buraya yapıştır
-client = Groq(api_key="gsk_...")
-
-with open("task.md","r") as f:
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+with open("task.md") as f:
     gorev = f.read()
 
-resp = client.chat.completions.create(
-    model="llama-3.3-70b-versatile",
-    messages=[{"role":"user","content":f"Görevin: {gorev}. Kodla ve açıkla."}]
-)
-print(resp.choices[0].message.content)
+prompt = f"Gorev: {gorev}. Tek bir dosya yap: index.html. Sadece HTML kodunu ver, aciklama yapma."
+
+res = client.chat.completions.create(model="llama-3.3-70b-versatile", messages=[{"role":"user","content":prompt}])
+open("index.html","w", encoding="utf-8").write(res.choices[0].message.content)
+print("index.html olustu")
