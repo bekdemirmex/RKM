@@ -9,49 +9,62 @@
     font-family:Arial,Helvetica,sans-serif;
     background:#121212;
     color:#e0e0e0;
-    line-height:1.6;
+    line-height:1.5;
   }
   header{
-    background:#1e1e1e;
     padding:20px;
     text-align:center;
+    background:#1e1e1e;
     border-bottom:1px solid #333;
   }
-  header h1{
+  h1{
     margin:0;
-    font-size:1.8rem;
-    color:#ffeb3b;
+    font-size:1.8em;
   }
   .container{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
     gap:20px;
     padding:20px;
   }
   .card{
     background:#1e1e1e;
-    padding:15px;
     border-radius:8px;
+    padding:15px;
     box-shadow:0 2px 6px rgba(0,0,0,0.4);
   }
-  .league{
-    margin:0 0 5px;
-    font-size:1.2rem;
-    color:#ffeb3b;
+  .card h2{
+    margin-top:0;
+    margin-bottom:10px;
+    font-size:1.2em;
+    color:#ff6f61;
   }
-  .teams{
-    margin:0 0 10px;
-    font-size:1rem;
-    color:#f0f0f0;
+  .team{
+    font-weight:bold;
+    margin-bottom:5px;
   }
-  .card p{
-    margin:4px 0;
+  .detail{
+    margin:5px 0;
   }
-  .disclaimer{
+  .detail span{
+    display:inline-block;
+    width:120px;
+    font-weight:600;
+  }
+  .analysis{
+    margin-top:10px;
+    padding:8px;
+    background:#2a2a2a;
+    border-radius:4px;
     text-align:center;
-    margin-top:20px;
-    color:#999;
-    font-size:.9rem;
+  }
+  footer{
+    text-align:center;
+    padding:15px;
+    font-size:0.9em;
+    color:#888;
+    border-top:1px solid #333;
+    background:#1e1e1e;
   }
 </style>
 </head>
@@ -61,24 +74,39 @@
 </header>
 <div class="container">
   <div class="card">
-    <h2 class="league">Premier League</h2>
-    <h3 class="teams">Manchester United vs Liverpool</h3>
-    <p>Form: 3-1-0</p>
-    <p>Eksik Oyuncu Sayısı: 2</p>
-    <p>xG: 1.8 vs 1.5</p>
-    <p>Eğitim Amacı Analizi: 73%</p>
+    <h2>Premier League</h2>
+    <div class="team">Manchester United vs Chelsea</div>
+    <div class="detail"><span>Form:</span> MU W2 D1 L1 / CHE W1 D2 L2</div>
+    <div class="detail"><span>Eksik Oyuncu:</span> 3</div>
+    <div class="detail"><span>xG:</span> 1.45</div>
+    <div class="analysis">Eğitim Fokus: 70%</div>
   </div>
   <div class="card">
-    <h2 class="league">La Liga</h2>
-    <h3 class="teams">Real Madrid vs Barcelona</h3>
-    <p>Form: 4-0-1</p>
-    <p>Eksik Oyuncu Sayısı: 1</p>
-    <p>xG: 2.0 vs 1.7</p>
-    <p>Eğitim Amacı Analizi: 78%</p>
+    <h2>La Liga</h2>
+    <div class="team">Real Madrid vs Barcelona</div>
+    <div class="detail"><span>Form:</span> RM W3 D0 L1 / BARC W1 D2 L2</div>
+    <div class="detail"><span>Eksik Oyuncu:</span> 2</div>
+    <div class="detail"><span>xG:</span> 2.10</div>
+    <div class="analysis">Eğitim Fokus: 80%</div>
   </div>
   <div class="card">
-    <h2 class="league">Serie A</h2>
-    <h3 class="teams">Juventus vs Inter Milan</h3>
-    <p>Form: 2-2-1</p>
-    <p>Eksik Oyuncu Sayısı: 3</p>
-    <p>xG: 1.6 vs 1.
+    <h2>Serie A</h2>
+    <div class="team">Juventus vs AC Milan</div>
+    <div class="detail"><span>Form:</span> JUVE W1 D3 L1 / AC Milan W2 D1 L1</div>
+    <div class="detail"><span>Eksik Oyuncu:</span> 4</div>
+    <div class="detail"><span>xG:</span> 1.30</div>
+    <div class="analysis">Eğitim Fokus: 60%</div>
+  </div>
+  <div class="card">
+    <h2>Bundesliga</h2>
+    <div class="team">Bayern Munich vs Borussia Dortmund</div>
+    <div class="detail"><span>Form:</span> BM W4 D0 L0 / BD W3 D1 L1</div>
+    <div class="detail"><span>Eksik Oyuncu:</span> 1</div>
+    <div class="detail"><span>xG:</span> 1.75</div>
+    <div class="analysis">Eğitim Fokus: 75%</div>
+  </div>
+  <div class="card">
+    <h2>Ligue 1</h2>
+    <div class="team">Paris Saint-Germain vs Olympique Lyon</div>
+    <div class="detail"><span>Form:</span> PSG W3 D1 L0 / OL W2 D2 L0</div>
+    <
