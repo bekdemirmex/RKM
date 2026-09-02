@@ -1,1 +1,1 @@
-çok basit bir clicker oyunu yap tıkladıkça para kazansın
+diplomacia.com.tr sitesini incele ve bana onun offline kopyasını yap
