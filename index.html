@@ -1,32 +1,11 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Futbol Analiz - Yarin</title>
-<style>
-body{margin:0;background:#0a0c10;color:#fff;font-family:system-ui;padding:0 0 40px}
-.top{background:#ffcc00;color:#000;text-align:center;padding:8px;font-size:12px;font-weight:800}
-h1{text-align:center;margin:16px 0 4px;font-size:22px} #tarih{text-align:center;opacity:.6;font-size:13px;margin-bottom:16px}
-.grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;padding:0 12px}
-.card{background:#151922;border:1px solid #253047;border-radius:16px;padding:14px}
-.lig{font-size:11px;opacity:.5;letter-spacing:1px} .mac{font-size:19px;font-weight:800;margin:10px 0;display:flex;justify-content:space-between}
-.row{display:flex;justify-content:space-between;font-size:12px;background:#0f131b;padding:8px 10px;border-radius:8px;margin-top:8px}
-.bar{height:6px;display:flex;border-radius:10px;overflow:hidden;margin-top:8px;background:#0f131b}
-</style>
-</head>
-<body>
-<div class="top">Eğitim / eğlence amaçlı istatistiksel analizdir, bahis tavsiyesi değildir.</div>
-<h1>Yarın Oynanacak 10 Maç</h1>
-<div id="tarih"></div>
-<div class="grid">
-<div class="card"><div class="lig">PREMIER LEAGUE - 21:45 MX</div><div class="mac"><span>Man City</span><span style="opacity:.3">vs</span><span>Arsenal</span></div><div class="row"><span>Form: W W D W W</span><span>W D W W L</span></div><div class="row"><span>Eksik: 2</span><span>xG 1.9 - 1.4</span><span>3 :Eskik</span></div><div class="bar"><div style="width:48%;background:#22ff00"></div><div style="width:26%;background:#555"></div><div style="width:26%;background:#ff3333"></div></div><div class="row" style="background:transparent"><span>Ev %48</span><span>Ber %26</span><span>Dep %26</span></div></div>
-<div class="card"><div class="lig">LA LIGA - 22:00 MX</div><div class="mac"><span>Real Madrid</span><span style="opacity:.3">vs</span><span>Atletico</span></div><div class="row"><span>Form: W W W D W</span><span>W L W D W</span></div><div class="row"><span>Eksik: 1</span><span>xG 2.1 - 1.2</span><span>4 :Eksik</span></div><div class="bar"><div style="width:55%;background:#22ff00"></div><div style="width:23%;background:#555"></div><div style="width:22%;background:#ff3333"></div></div><div class="row" style="background:transparent"><span>Ev %55</span><span>Ber %23</span><span>Dep %22</span></div></div>
-<div class="card"><div class="lig">BUNDESLIGA - 21:30 MX</div><div class="mac"><span>Bayern</span><span style="opacity:.3">vs</span><span>Leverkusen</span></div><div class="row"><span>Form: W W W W D</span><span>W W D W W</span></div><div class="row"><span>Eksik: 3</span><span>xG 2.3 - 1.5</span><span>2 :Eksik</span></div><div class="bar"><div style="width:52%;background:#22ff00"></div><div style="width:22%;background:#555"></div><div style="width:26%;background:#ff3333"></div></div><div class="row" style="background:transparent"><span>Ev %52</span><span>Ber %22</span><span>Dep %26</span></div></div>
-<div class="card"><div class="lig">SERIE A - 21:45 MX</div><div class="mac"><span>Inter</span><span style="opacity:.3">vs</span><span>Napoli</span></div><div class="row"><span>Form: W D W L W</span><span>D W W W D</span></div><div class="row"><span>Eksik: 2</span><span>xG 1.6 - 1.6</span><span>2 :Eksik</span></div><div class="bar"><div style="width:38%;background:#22ff00"></div><div style="width:28%;background:#555"></div><div style="width:34%;background:#ff3333"></div></div><div class="row" style="background:transparent"><span>Ev %38</span><span>Ber %28</span><span>Dep %34</span></div></div>
-</div>
-<script>
-document.getElementById("tarih").innerText = new Date(Date.now()+86400000).toLocaleDateString('tr-TR',{timeZone:'America/Mexico_City',weekday:'long',day:'numeric',month:'long'});
-</script>
-</body>
-</html>
+<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Futbol</title>
+<style>body{margin:0;background:#0a0c10;color:#fff;font-family:system-ui;padding:0 0 40px}.top{background:#ffcc00;color:#000;text-align:center;padding:8px;font-size:12px;font-weight:800}h1{text-align:center;margin:16px 0 4px;font-size:22px}#tarih{text-align:center;opacity:.6;font-size:13px;margin-bottom:16px}.grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;padding:0 12px}.card{background:#151922;border:1px solid #253047;border-radius:16px;padding:14px}.lig{font-size:11px;opacity:.5}.mac{font-size:19px;font-weight:800;margin:10px 0;display:flex;justify-content:space-between}.row{display:flex;justify-content:space-between;font-size:12px;background:#0f131b;padding:8px 10px;border-radius:8px;margin-top:8px}.bar{height:6px;display:flex;border-radius:10px;overflow:hidden;margin-top:8px;background:#0f131b}</style>
+</head><body><div class="top">Eğitim / eğlence amaçlı istatistiksel analizdir, bahis tavsiyesi değildir.</div><h1>Yarın Oynanacak 10 Maç</h1><div id="tarih">2026-09-03 - Amerika/Mexico_City</div><div class="grid">
+<div class="card"><div class="lig">La Liga - 13:00 MX</div><div class="mac"><span>Real Sociedad</span><span style="opacity:.3">vs</span><span>Celta Vigo</span></div><div class="row"><span>Form: L D W W W</span><span>D L L D W</span></div><div class="row"><span>Eksik: 1</span><span>xG 1.3 - 1.3</span><span>1 :Eksik</span></div><div class="bar"><div style="width:58%;background:#22ff00"></div><div style="width:24%;background:#555"></div><div style="width:18%;background:#ff3333"></div></div><div class="row" style="background:transparent"><span>Ev %58</span><span>Ber %24</span><span>Dep %18</span></div></div>
+
+<div class="card"><div class="lig">Ligue 1 - 12:45 MX</div><div class="mac"><span>Toulouse</span><span style="opacity:.3">vs</span><span>Lille</span></div><div class="row"><span>Form: L W D W W</span><span>L W L W L</span></div><div class="row"><span>Eksik: 2</span><span>xG 2.2 - 1.8</span><span>3 :Eksik</span></div><div class="bar"><div style="width:55%;background:#22ff00"></div><div style="width:21%;background:#555"></div><div style="width:24%;background:#ff3333"></div></div><div class="row" style="background:transparent"><span>Ev %55</span><span>Ber %21</span><span>Dep %24</span></div></div>
+
+<div class="card"><div class="lig">Pro League - 12:30 MX</div><div class="mac"><span>Anderlecht</span><span style="opacity:.3">vs</span><span>KV Kortrijk</span></div><div class="row"><span>Form: L D D D W</span><span>W L W L W</span></div><div class="row"><span>Eksik: 3</span><span>xG 1.3 - 0.9</span><span>2 :Eksik</span></div><div class="bar"><div style="width:53%;background:#22ff00"></div><div style="width:27%;background:#555"></div><div style="width:20%;background:#ff3333"></div></div><div class="row" style="background:transparent"><span>Ev %53</span><span>Ber %27</span><span>Dep %20</span></div></div>
+
+<div class="card"><div class="lig">Pro League - 12:30 MX</div><div class="mac"><span>KAA Gent</span><span style="opacity:.3">vs</span><span>OH Leuven</span></div><div class="row"><span>Form: L L L W L</span><span>W D W W L</span></div><div class="row"><span>Eksik: 3</span><span>xG 1.7 - 1.5</span><span>2 :Eksik</span></div><div class="bar"><div style="width:45%;background:#22ff00"></div><div style="width:25%;background:#555"></div><div style="width:30%;background:#ff3333"></div></div><div class="row" style="background:transparent"><span>Ev %45</span><span>Ber %25</span><span>Dep %30</span></div></div>
+</div></body></html>
