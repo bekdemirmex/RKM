@@ -1,1 +1,1 @@
-Siyah temali kırmızı hatlı modern hesap makinesi yap
+Siyah temali modern hesap makinesi yap
