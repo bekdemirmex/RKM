@@ -1,1 +1,1 @@
-Bana modern bir to do list uygulaması yap
+Siyah temali glassmorphism hesap makinesi yap, tuslar yuvarlak olsun
