@@ -3,6 +3,8 @@ on:
   push:
     paths: ['task.md']
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   calistir:
     runs-on: ubuntu-latest
@@ -19,5 +21,5 @@ jobs:
           git config user.name "RKM Bot"
           git config user.email "bot@rkm.com"
           git add.
-          git commit -m "ajan uretti" || true
+          git diff --staged --quiet || git commit -m "ajan uretti"
           git push
