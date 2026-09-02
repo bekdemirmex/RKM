@@ -1,1 +1,1 @@
-Hava durumu uygulaması yap, şehir yazınca sıcaklık gelsin, glassmorphism tasarım olsun
+çok basit bir clicker oyunu yap tıkladıkça para kazansın
