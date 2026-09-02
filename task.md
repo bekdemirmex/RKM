@@ -1,1 +1,1 @@
-Siyah temali modern hesap makinesi yap
+Neon renkli, animasyonlu bir todo list uygulaması yap, localStorage ile kaydetsin
