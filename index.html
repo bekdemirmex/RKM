@@ -2,60 +2,83 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Avrupa Analiz - Yarın</title>
+<title>Avrupa Futbol İstatistik Dashboard</title>
 <style>
-body{margin:0;background:#0a0c10;color:#e6e6e6;font-family:system-ui;padding:0 16px 40px}
-header{max-width:1000px;margin:24px auto 10px;text-align:center}
-h1{margin:0;font-size:26px;letter-spacing:.5px}
-.sub{opacity:.6;font-size:13px;margin-top:6px}
-.warn{background:#1a1e26;border:1px solid #2a3242;color:#8b9bb4;padding:10px;border-radius:10px;max-width:1000px;margin:16px auto;font-size:12px;text-align:center}
-.grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
-.card{background:#151922;border:1px solid #222a38;border-radius:16px;padding:14px}
-.league{font-size:11px;opacity:.6;letter-spacing:1px;text-transform:uppercase}
-.match{font-size:18px;font-weight:700;margin:8px 0;display:flex;justify-content:space-between}
-.time{font-size:12px;opacity:.5}
-.row{display:flex;justify-content:space-between;font-size:12px;margin-top:10px;background:#0f131b;padding:8px;border-radius:10px}
-.bar{display:flex;height:6px;background:#0f131b;border-radius:10px;overflow:hidden;margin-top:8px}
-.bar div{height:100%}
-.form span{display:inline-block;width:18px;height:18px;line-height:18px;text-align:center;border-radius:4px;font-size:10px;margin-right:2px}
-.W{background:#1f8a4c} .D{background:#444} .L{background:#7a2a2a}
+  body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#121212;
+    color:#e0e0e0;
+    line-height:1.6;
+  }
+  header{
+    background:#1e1e1e;
+    padding:20px;
+    text-align:center;
+    border-bottom:1px solid #333;
+  }
+  header h1{
+    margin:0;
+    font-size:1.8rem;
+    color:#ffeb3b;
+  }
+  .container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+    padding:20px;
+  }
+  .card{
+    background:#1e1e1e;
+    padding:15px;
+    border-radius:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.4);
+  }
+  .league{
+    margin:0 0 5px;
+    font-size:1.2rem;
+    color:#ffeb3b;
+  }
+  .teams{
+    margin:0 0 10px;
+    font-size:1rem;
+    color:#f0f0f0;
+  }
+  .card p{
+    margin:4px 0;
+  }
+  .disclaimer{
+    text-align:center;
+    margin-top:20px;
+    color:#999;
+    font-size:.9rem;
+  }
 </style>
 </head>
 <body>
 <header>
-<h1>Avrupa Top 10 Lig - Yarınki Maçlar</h1>
-<div class="sub">Mock verilerle istatistik dashboard • Canlı veri yok, örnek analiz</div>
+  <h1>Avrupa Futbol İstatistik Dashboard</h1>
 </header>
-<div class="warn">Eğitim / eğlence amaçlı istatistiksel modeldir. Bahis tavsiyesi değildir.</div>
-<div id="grid" class="grid"></div>
-<script>
-const data=[
-{lig:"Premier League", saat:"21:45", ev:"Man City", dep:"Arsenal", evForm:["W","W","D","W","W"], depForm:["W","D","W","W","L"], eksikEv:2, eksikDep:3, xgEv:1.9, xgDep:1.4, p:[48,26]},
-{lig:"La Liga", saat:"22:00", ev:"Real Madrid", dep:"Atletico", evForm:["W","W","W","D","W"], depForm:["W","L","W","D","W"], eksikEv:1, eksikDep:4, xgEv:2.1, xgDep:1.2, p:[55,23,22]},
-{lig:"Bundesliga", saat:"21:30", ev:"Bayern", dep:"Leverkusen", evForm:["W","W","W","W","D"], depForm:["W","W","D","W","W"], eksikEv:3, eksikDep:2, xgEv:2.3, xgDep:1.5, p:[52,22,26]},
-{lig:"Serie A", saat:"21:45", ev:"Inter", dep:"Napoli", evForm:["W","D","W","L","W"], depForm:["D","W","W","W","D"], eksikEv:2, eksikDep:2, xgEv:1.6, xgDep:1.6, p:[38,28,34]},
-{lig:"Ligue 1", saat:"22:00", ev:"PSG", dep:"Marseille", evForm:["W","W","L","W","W"], depForm:["W","D","L","W","D"], eksikEv:2, eksikDep:5, xgEv:2.0, xgDep:1.1, p:[60,20,20]},
-{lig:"Süper Lig", saat:"20:00", ev:"Galatasaray", dep:"Fenerbahçe", evForm:["W","W","D","W","W"], depForm:["W","W","W","D","W"], eksikEv:1, eksikDep:1, xgEv:1.7, xgDep:1.7, p:[40,28,32]},
-{lig:"Eredivisie", saat:"21:00", ev:"Ajax", dep:"PSV", evForm:["L","W","D","W","W"], depForm:["W","W","W","W","W"], eksikEv:4, eksikDep:1, xgEv:1.4, xgDep:1.8, p:[30,25,45]},
-{lig:"Primeira Liga", saat:"22:30", ev:"Benfica", dep:"Porto", evForm:["W","W","W","D","W"], depForm:["W","D","W","W","L"], eksikEv:2, eksikDep:3, xgEv:1.5, xgDep:1.4, p:[42,27,31]},
-{lig:"Belçika Pro", saat:"21:45", ev:"Club Brugge", dep:"Genk", evForm:["W","L","W","W","D"], depForm:["W","W","L","D","W"], eksikEv:2, eksikDep:2, xgEv:1.6, xgDep:1.3, p:[44,26,30]},
-{lig:"Championship", saat:"22:00", ev:"Leeds", dep:"Leicester", evForm:["W","W","D","W","L"], depForm:["D","W","W","W","W"], eksikEv:3, eksikDep:2, xgEv:1.5, xgDep:1.5, p:[37,28,35]},
-];
-function formHtml(arr){return arr.map(f=>`<span class="${f}">${f}</span>`).join("")}
-const grid=document.getElementById("grid");
-data.forEach(m=>{
-  const d=document.createElement("div");d.className="card";
-  d.innerHTML=`
-  <div class="league">${m.lig} • <span class="time">${m.saat}</span></div>
-  <div class="match"><span>${m.ev}</span><span style="opacity:.4">vs</span><span>${m.dep}</span></div>
-  <div class="row"><span>Form: ${formHtml(m.evForm)}</span><span>${formHtml(m.depForm)} :Form</span></div>
-  <div class="row"><span>Eksik: ${m.eksikEv}</span><span>xG ${m.xgEv} - ${m.xgDep}</span><span>${m.eksikDep} :Eksik</span></div>
-  <div class="bar"><div style="width:${m.p[0]}%;background:#39ff14"></div><div style="width:${m.p[1]}%;background:#555"></div><div style="width:${m.p[2]}%;background:#ff4d4d"></div></div>
-  <div class="row" style="background:transparent;padding:6px 2px 0"><span>Ev %${m.p[0]}</span><span>Ber %${m.p[1]}</span><span>Dep %${m.p[2]}</span></div>
-  `;
-  grid.appendChild(d);
-});
-</script>
-</body>
-</html>
+<div class="container">
+  <div class="card">
+    <h2 class="league">Premier League</h2>
+    <h3 class="teams">Manchester United vs Liverpool</h3>
+    <p>Form: 3-1-0</p>
+    <p>Eksik Oyuncu Sayısı: 2</p>
+    <p>xG: 1.8 vs 1.5</p>
+    <p>Eğitim Amacı Analizi: 73%</p>
+  </div>
+  <div class="card">
+    <h2 class="league">La Liga</h2>
+    <h3 class="teams">Real Madrid vs Barcelona</h3>
+    <p>Form: 4-0-1</p>
+    <p>Eksik Oyuncu Sayısı: 1</p>
+    <p>xG: 2.0 vs 1.7</p>
+    <p>Eğitim Amacı Analizi: 78%</p>
+  </div>
+  <div class="card">
+    <h2 class="league">Serie A</h2>
+    <h3 class="teams">Juventus vs Inter Milan</h3>
+    <p>Form: 2-2-1</p>
+    <p>Eksik Oyuncu Sayısı: 3</p>
+    <p>xG: 1.6 vs 1.
