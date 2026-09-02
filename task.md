@@ -1,1 +1,1 @@
-Siyah temali glassmorphism hesap makinesi yap, tuslar yuvarlak olsun
+Siyah temali modern hesap makinesi yap
