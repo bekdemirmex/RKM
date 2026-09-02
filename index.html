@@ -2,111 +2,186 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Avrupa Futbol İstatistik Dashboard</title>
+<title>Yarınki Avrupa Futbol Analizleri</title>
 <style>
-  body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#121212;
-    color:#e0e0e0;
-    line-height:1.5;
-  }
-  header{
-    padding:20px;
-    text-align:center;
-    background:#1e1e1e;
-    border-bottom:1px solid #333;
-  }
-  h1{
-    margin:0;
-    font-size:1.8em;
-  }
-  .container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:20px;
-    padding:20px;
-  }
-  .card{
-    background:#1e1e1e;
-    border-radius:8px;
-    padding:15px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.4);
-  }
-  .card h2{
-    margin-top:0;
-    margin-bottom:10px;
-    font-size:1.2em;
-    color:#ff6f61;
-  }
-  .team{
-    font-weight:bold;
-    margin-bottom:5px;
-  }
-  .detail{
-    margin:5px 0;
-  }
-  .detail span{
-    display:inline-block;
-    width:120px;
-    font-weight:600;
-  }
-  .analysis{
-    margin-top:10px;
-    padding:8px;
-    background:#2a2a2a;
-    border-radius:4px;
-    text-align:center;
-  }
-  footer{
-    text-align:center;
-    padding:15px;
-    font-size:0.9em;
-    color:#888;
-    border-top:1px solid #333;
-    background:#1e1e1e;
-  }
+    :root{
+        --bg:#0a0c10;
+        --card:#1c1e28;
+        --text:#e0e0e0;
+        --accent:#00c853;
+        --accent2:#ff1744;
+        --accent3:#ffeb3b;
+    }
+    body{
+        margin:0;
+        font-family:Arial,Helvetica,sans-serif;
+        background:var(--bg);
+        color:var(--text);
+        line-height:1.6;
+    }
+    #alert{
+        background:var(--accent2);
+        color:#fff;
+        padding:10px 20px;
+        text-align:center;
+        font-weight:bold;
+    }
+    #header{
+        padding:20px;
+        text-align:center;
+        font-size:1.2rem;
+    }
+    #matches{
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+        gap:20px;
+        padding:20px;
+    }
+    .card{
+        background:var(--card);
+        border-radius:8px;
+        padding:15px;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+    }
+    .card h3{
+        margin:0 0 5px 0;
+        font-size:1.1rem;
+    }
+    .time{
+        font-size:0.9rem;
+        color:var(--accent3);
+        margin-bottom:10px;
+    }
+    .teams{
+        font-size:1rem;
+        margin-bottom:10px;
+    }
+    .form{
+        margin-bottom:10px;
+        font-size:0.9rem;
+    }
+    .stats{
+        display:flex;
+        justify-content:space-between;
+        margin-bottom:10px;
+    }
+    .stat{
+        flex:1;
+        text-align:center;
+    }
+    .bar{
+        height:8px;
+        border-radius:4px;
+        margin-top:4px;
+    }
+    .bar.home{background:var(--accent);}
+    .bar.draw{background:var(--accent3);}
+    .bar.away{background:var(--accent2);}
+    @media(max-width:480px){
+        .teams{font-size:0.95rem;}
+        .form{font-size:0.85rem;}
+    }
 </style>
 </head>
 <body>
-<header>
-  <h1>Avrupa Futbol İstatistik Dashboard</h1>
-</header>
-<div class="container">
-  <div class="card">
-    <h2>Premier League</h2>
-    <div class="team">Manchester United vs Chelsea</div>
-    <div class="detail"><span>Form:</span> MU W2 D1 L1 / CHE W1 D2 L2</div>
-    <div class="detail"><span>Eksik Oyuncu:</span> 3</div>
-    <div class="detail"><span>xG:</span> 1.45</div>
-    <div class="analysis">Eğitim Fokus: 70%</div>
-  </div>
-  <div class="card">
-    <h2>La Liga</h2>
-    <div class="team">Real Madrid vs Barcelona</div>
-    <div class="detail"><span>Form:</span> RM W3 D0 L1 / BARC W1 D2 L2</div>
-    <div class="detail"><span>Eksik Oyuncu:</span> 2</div>
-    <div class="detail"><span>xG:</span> 2.10</div>
-    <div class="analysis">Eğitim Fokus: 80%</div>
-  </div>
-  <div class="card">
-    <h2>Serie A</h2>
-    <div class="team">Juventus vs AC Milan</div>
-    <div class="detail"><span>Form:</span> JUVE W1 D3 L1 / AC Milan W2 D1 L1</div>
-    <div class="detail"><span>Eksik Oyuncu:</span> 4</div>
-    <div class="detail"><span>xG:</span> 1.30</div>
-    <div class="analysis">Eğitim Fokus: 60%</div>
-  </div>
-  <div class="card">
-    <h2>Bundesliga</h2>
-    <div class="team">Bayern Munich vs Borussia Dortmund</div>
-    <div class="detail"><span>Form:</span> BM W4 D0 L0 / BD W3 D1 L1</div>
-    <div class="detail"><span>Eksik Oyuncu:</span> 1</div>
-    <div class="detail"><span>xG:</span> 1.75</div>
-    <div class="analysis">Eğitim Fokus: 75%</div>
-  </div>
-  <div class="card">
-    <h2>Ligue 1</h2>
-    <div class="team">Paris Saint-Germain vs Olympique Lyon</div>
-    <div class="detail"><span>Form:</span> PSG W3 D1 L0 / OL W2 D2 L0</div>
-    <
+<div id="alert">Eğitim / eğlence amaçlı istatistiksel analizdir, bahis tavsiyesi değildir.</div>
+<div id="header"></div>
+<div id="matches"></div>
+
+<script>
+/* Mock veri seti */
+const matches = [
+    {
+        league:"Premier League",
+        time:"18:30",
+        home:"Arsenal",
+        away:"Manchester City",
+        homeLast5:"W-D-L-W-W",
+        awayLast5:"L-W-W-D-L",
+        missingHome:1,
+        missingAway:0,
+        xgHome:1.12,
+        xgAway:1.45,
+        percHome:48,
+        percDraw:22,
+        percAway:30
+    },
+    {
+        league:"La Liga",
+        time:"20:00",
+        home:"Barcelona",
+        away:"Real Madrid",
+        homeLast5:"W-W-D-W-L",
+        awayLast5:"D-L-L-W-W",
+        missingHome:0,
+        missingAway:2,
+        xgHome:1.38,
+        xgAway:1.20,
+        percHome:52,
+        percDraw:18,
+        percAway:30
+    },
+    {
+        league:"Bundesliga",
+        time:"19:00",
+        home:"Bayern Munich",
+        away:"Borussia Dortmund",
+        homeLast5:"W-W-W-D-L",
+        awayLast5:"L-D-W-W-W",
+        missingHome:0,
+        missingAway:1,
+        xgHome:1.55,
+        xgAway:1.05,
+        percHome:55,
+        percDraw:15,
+        percAway:30
+    },
+    {
+        league:"Serie A",
+        time:"17:45",
+        home:"Juventus",
+        away:"Inter Milan",
+        homeLast5:"D-L-W-W-W",
+        awayLast5:"W-W-L-D-L",
+        missingHome:2,
+        missingAway:0,
+        xgHome:1.07,
+        xgAway:1.22,
+        percHome:40,
+        percDraw:25,
+        percAway:35
+    },
+    {
+        league:"Ligue 1",
+        time:"20:30",
+        home:"Paris Saint-Germain",
+        away:"Lyon",
+        homeLast5:"W-W-W-W-W",
+        awayLast5:"L-D-L-W-D",
+        missingHome:0,
+        missingAway:1,
+        xgHome:1.80,
+        xgAway:0.95,
+        percHome:70,
+        percDraw:10,
+        percAway:20
+    },
+    {
+        league:"Eredivisie",
+        time:"18:15",
+        home:"Ajax",
+        away:"Feyenoord",
+        homeLast5:"W-D-W-W-L",
+        awayLast5:"L-W-D-L-W",
+        missingHome:1,
+        missingAway:2,
+        xgHome:1.15,
+        xgAway:1.10,
+        percHome:50,
+        percDraw:20,
+        percAway:30
+    },
+    {
+        league:"
