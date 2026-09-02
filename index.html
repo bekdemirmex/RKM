@@ -2,31 +2,87 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Futbol Analiz</title>
+<title>Avrupa Futbol Analiz Dashboard</title>
 <style>
-body{margin:0;background:#0a0c10;color:#fff;font-family:system-ui;padding:0 10px 40px}
-.top{background:#ff0a3b;color:#fff;text-align:center;padding:8px;font-size:12px;font-weight:700}
-h1{font-size:22px;text-align:center;margin:18px 0 4px} #tarih{text-align:center;opacity:.6;font-size:13px}
-.grid{max-width:1000px;margin:16px auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
-.card{background:#151922;border:1px solid #253047;border-radius:16px;padding:14px}
-.lig{font-size:11px;opacity:.5} .mac{font-size:18px;font-weight:800;margin:8px 0;display:flex;justify-content:space-between}
-.row{display:flex;justify-content:space-between;font-size:12px;background:#0f131b;padding:8px;border-radius:8px;margin-top:8px}
-.bar{height:6px;display:flex;border-radius:10px;overflow:hidden;margin-top:8px;background:#0f131b}
+:root{
+  --bg:#0a0c10;
+  --card:#1a1c22;
+  --text:#e0e0e0;
+  --accent:#28a745;
+  --red:#dc3545;
+  --border:#2c2e35;
+  --warning:#ffc107;
+}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;min-height:100vh;}
+header{background:var(--border);padding:10px 20px;text-align:center;font-size:1.1rem;}
+header .warning{background:var(--warning);color:#000;padding:5px 10px;border-radius:4px;}
+main{flex:1;padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+.card{background:var(--card);padding:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.5);}
+.card h3{margin:0 0 10px 0;font-size:1.2rem;}
+.card .time{font-size:0.9rem;color:#bbb;}
+.card .teams{margin:10px 0;font-size:1.1rem;}
+.card .form{margin:5px 0;font-size:0.9rem;}
+.card .stat{margin:10px 0;font-size:0.9rem;}
+.card .percent{display:flex;gap:5px;margin-top:5px;}
+.bar{height:8px;border-radius:4px;flex:1;}
+.bar.win{background:var(--accent);}
+.bar.draw{background:var(--warning);}
+.bar.lose{background:var(--red);}
+@media(max-width:480px){
+  main{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
-<div class="top">Eğitim / eğlence amaçlı istatistiksel analizdir, bahis tavsiyesi değildir.</div>
-<h1>Avrupa Top 10 Lig - Yarın</h1>
-<div id="tarih"></div>
-<div class="grid">
-<div class="card"><div class="lig">PREMIER LEAGUE - 21:45</div><div class="mac"><span>Man City</span><span style="opacity:.3">vs</span><span>Arsenal</span></div><div class="row"><span>Form: W W D W W</span><span>W D W W L</span></div><div class="row"><span>Eksik:2</span><span>xG 1.9-1.4</span><span>3:Eksik</span></div><div class="bar"><div style="width:48%;background:#39ff14"></div><div style="width:26%;background:#666"></div><div style="width:26%;background:#ff3b3b"></div></div><div class="row" style="background:transparent"><span>Ev %48</span><span>Ber %26</span><span>Dep %26</span></div></div>
-<div class="card"><div class="lig">LA LIGA - 22:00</div><div class="mac"><span>Real Madrid</span><span style="opacity:.3">vs</span><span>Atletico</span></div><div class="row"><span>Form: W W W D W</span><span>W L W D W</span></div><div class="row"><span>Eksik:1</span><span>xG 2.1-1.2</span><span>4:Eksik</span></div><div class="bar"><div style="width:55%;background:#39ff14"></div><div style="width:23%;background:#666"></div><div style="width:22%;background:#ff3b3b"></div></div><div class="row" style="background:transparent"><span>Ev %55</span><span>Ber %23</span><span>Dep %22</span></div></div>
-<div class="card"><div class="lig">BUNDESLIGA - 21:30</div><div class="mac"><span>Bayern</span><span style="opacity:.3">vs</span><span>Leverkusen</span></div><div class="row"><span>Form: W W W W D</span><span>W W D W W</span></div><div class="row"><span>Eksik:3</span><span>xG 2.3-1.5</span><span>2:Eksik</span></div><div class="bar"><div style="width:52%;background:#39ff14"></div><div style="width:22%;background:#666"></div><div style="width:26%;background:#ff3b3b"></div></div><div class="row" style="background:transparent"><span>Ev %52</span><span>Ber %22</span><span>Dep %26</span></div></div>
-<div class="card"><div class="lig">SERIE A - 21:45</div><div class="mac"><span>Inter</span><span style="opacity:.3">vs</span><span>Napoli</span></div><div class="row"><span>Form: W D W L W</span><span>D W W W D</span></div><div class="row"><span>Eksik:2</span><span>xG 1.6-1.6</span><span>2:Eksik</span></div><div class="bar"><div style="width:38%;background:#39ff14"></div><div style="width:28%;background:#666"></div><div style="width:34%;background:#ff3b3b"></div></div><div class="row" style="background:transparent"><span>Ev %38</span><span>Ber %28</span><span>Dep %34</span></div></div>
-</div>
+<header>
+  <div class="warning">Eğitim / eğlence amaçlı istatistiksel analizdir, bahis tavsiyesi değildir.</div>
+  <h1 id="header-date">Yarın Oynanacak 10 Maç</h1>
+</header>
+<main id="cards"></main>
 <script>
-document.getElementById("tarih").innerText = new Date(Date.now()+86400000).toLocaleDateString('tr-TR',{timeZone:'America/Mexico_City',weekday:'long',day:'numeric',month:'long'});
-</script>
-</body>
-</html>
+function getMexicoCityTomorrow(){
+  const nowUtc = new Date();
+  const tz = 'America/Mexico_City';
+  const options = {timeZone:tz, year:'numeric', month:'long', day:'numeric', weekday:'long'};
+  const formatter = new Intl.DateTimeFormat('tr-TR',options);
+  const tomorrow = new Date(nowUtc.getTime() + 24*60*60*1000);
+  return formatter.format(tomorrow);
+}
+document.getElementById('header-date').textContent = 'Yarın Oynanacak 10 Maç - '+getMexicoCityTomorrow();
+
+const matches = [
+ {league:'Premier League', time:'2026-03-16T15:00:00Z', home:'Manchester United', away:'Liverpool', form:'W-D-W-L-W', missing:3, xg:2.3, win:55, draw:25, lose:20},
+ {league:'La Liga', time:'2026-03-16T17:30:00Z', home:'Real Madrid', away:'Barcelona', form:'L-W-W-D-W', missing:5, xg:3.1, win:50, draw:30, lose:20},
+ {league:'Bundesliga', time:'2026-03-16T14:45:00Z', home:'Bayern Munich', away:'Borussia Dortmund', form:'W-W-W-W-D', missing:2, xg:2.8, win:60, draw:25, lose:15},
+ {league:'Serie A', time:'2026-03-16T19:00:00Z', home:'Juventus', away:'AC Milan', form:'D-W-L-W-L', missing:4, xg:1.9, win:45, draw:35, lose:20},
+ {league:'Ligue 1', time:'2026-03-16T16:15:00Z', home:'PSG', away:'Olympique Lyon', form:'W-D-W-W-W', missing:1, xg:2.5, win:65, draw:20, lose:15},
+ {league:'Eredivisie', time:'2026-03-16T18:00:00Z', home:'Ajax', away:'Feyenoord', form:'W-L-W-D-W', missing:3, xg:2.0, win:55, draw:25, lose:20},
+ {league:'Primeira Liga', time:'2026-03-16T20:30:00Z', home:'Benfica', away:'Porto', form:'L-W-D-W-L', missing:6, xg:2.2, win:50, draw:30, lose:20},
+ {league:'Super Lig', time:'2026-03-16T13:00:00Z', home:'Galatasaray', away:'Fenerbahce', form:'W-W-D-L-W', missing:2, xg:1.8, win:60, draw:25, lose:15},
+ {league:'Belçika Pro Lig', time:'2026-03-16T21:45:00Z', home:'Club Brugge', away:'Antwerp', form:'D-L-W-W-D', missing:4, xg:1.5, win:45, draw:35, lose:20},
+ {league:'Championship', time:'2026-03-16T12:30:00Z', home:'Leicester City', away:'West Ham', form:'W-W-L-D-W', missing:3, xg:2.1, win:55, draw:25, lose:20}
+];
+
+const tz = 'America/Mexico_City';
+const timeOptions = {timeZone:tz, hour:'2-digit', minute:'2-digit', hour12:false};
+
+function formatTime(utcString){
+  const date = new Date(utcString);
+  const formatter = new Intl.DateTimeFormat('tr-TR',timeOptions);
+  return formatter.format(date);
+}
+
+const cardsContainer = document.getElementById('cards');
+matches.forEach(m=>{
+  const card = document.createElement('div');
+  card.className='card';
+  card.innerHTML = `
+    <h3>${m.league}</h3>
+    <div class="time">${formatTime(m.time)} (Meksika Saati)</div>
+    <div class="teams">${m.home} vs ${m.away}</div>
+    <div class="form"><strong>Son 5 Maç:</strong> ${m.form}</div>
+    <div class="stat"><strong>Eksik Oyuncu:</strong> ${m.missing}</div>
+    <div class="stat"><strong>xG Beklenti:</strong> ${m.xg}</div>
+    <div class="percent">
+      <div class="bar win" style="width:${m.win}%;" title="Ev %"></div>
+      <div class="
